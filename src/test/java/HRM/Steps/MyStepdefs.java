@@ -3,6 +3,7 @@ package HRM.Steps;
 import HRM.Core.testContext;
 import HRM.Pages.adminPage;
 import HRM.Pages.loginPage;
+import HRM.Pages.projectPage;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -17,12 +18,14 @@ public class MyStepdefs extends testContext {
     public Scenario Scenario;
     private loginPage loginPage;
     private adminPage adminPage;
+    private projectPage projectPage;
 
     @Before
     public void before(Scenario Scenario) throws Exception{
         this.Scenario = Scenario;
         loginPage = new loginPage(getDriver());
          adminPage = new adminPage(getDriver());
+        projectPage = new projectPage(getDriver());
 
     }
 
@@ -83,5 +86,17 @@ public class MyStepdefs extends testContext {
     @And("click on the Save button")
     public void clickOnTheSaveButton() throws InterruptedException {
         adminPage.submit();
+    }
+
+    @And("verify the user is added in the portal")
+    public void verifyTheUserIsAddedInThePortal() {
+        adminPage.verifyPopUp("Successfully Saved");
+    }
+
+
+
+    @And("user click on the {string} tab and verify the user in Time page")
+    public void userClickOnTheTimeTabAndVerifyTheUserInTimePage(String time) throws InterruptedException {
+        projectPage.selectTime(time);
     }
 }
