@@ -30,6 +30,7 @@ public class adminPage extends testContext{
     By urNameField = By.xpath(locatorProp.getObjectID("urNameField"));
     By empNamedd = By.xpath(locatorProp.getObjectID("empNamedd"));
     By Save = By.xpath((locatorProp.getObjectID("Save")));
+    By toastMessage = By.cssSelector(locatorProp.getObjectID("toastMessage"));
 
     public adminPage(WebDriver webDriver){
         this.driver = webDriver;
@@ -106,6 +107,19 @@ public class adminPage extends testContext{
         driver.findElement(Save).click();
         System.out.println("save is clicked");
         sleep(3000);
+    }
+
+    public void verifyPopUp(String expectedMessage){
+        WebDriver driver =  getDriver();
+        WebDriverWait wbwait = new WebDriverWait(driver,Duration.ofSeconds(20));
+        WebElement toast = wbwait.until(ExpectedConditions.visibilityOfElementLocated(toastMessage));
+        String actualMessage =  toast.getText();
+        if (actualMessage.equalsIgnoreCase(expectedMessage)){
+            System.out.println("saved successfully" +actualMessage );
+        }
+        else{
+            System.out.println("not saved successfully" +expectedMessage);
+        }
     }
 
 
