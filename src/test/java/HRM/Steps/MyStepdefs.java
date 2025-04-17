@@ -10,7 +10,9 @@ import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,14 +20,14 @@ public class MyStepdefs extends testContext {
     public Scenario Scenario;
     private loginPage loginPage;
     private adminPage adminPage;
-    private projectPage projectPage;
+   private projectPage projectPage;
 
     @Before
     public void before(Scenario Scenario) throws Exception{
         this.Scenario = Scenario;
         loginPage = new loginPage(getDriver());
          adminPage = new adminPage(getDriver());
-        projectPage = new projectPage(getDriver());
+       projectPage = new projectPage(getDriver());
 
     }
 
@@ -98,5 +100,27 @@ public class MyStepdefs extends testContext {
     @And("user click on the {string} tab and verify the user in Time page")
     public void userClickOnTheTimeTabAndVerifyTheUserInTimePage(String time) throws InterruptedException {
         projectPage.selectTime(time);
+    }
+
+    @And("user click on the {string} and select the project and verify project page is displayed")
+    public void userClickOnTheProjectInfoAndSelectTheProjectAndVerifyProjectPageIsDisplayed(String ProjectInfo) throws InterruptedException {
+        projectPage.selectProject(ProjectInfo);
+    }
+
+    @And("user click on the add on the project page")
+    public void userClickOnTheAddOnTheProjectPage() throws InterruptedException {
+        projectPage.clickAdd();
+    }
+
+    @And("user fills the project details with the following:")
+    public void userFillsTheProjectDetailsWithTheFollowing(String projectDetails) throws InterruptedException {
+        String[] lines = projectDetails.split("\\n");
+        Map<String,String> projectMap = new HashMap<>();
+        for(String line : lines) {
+            String[] parts = line.split(":");
+            projectMap.put(parts[0].trim(), parts[1].trim());
+        }
+            projectPage.addProjectDetails(projectMap);
+
     }
 }

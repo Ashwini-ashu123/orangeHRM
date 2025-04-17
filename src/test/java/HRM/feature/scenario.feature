@@ -29,6 +29,16 @@ Feature: Login to the OrangeHRM
         And User click on the Login button
         And verify that user is in home page of orangeHRM
         And user click on the 'Time' tab and verify the user in Time page
+        And user click on the 'Project Info ' and select the project and verify project page is displayed
+        And user click on the add on the project page
+        And user fills the project details with the following:
+          """
+          Name: Rellon
+          Description: Autoglass company for the repair and replacement for the car and heavy vehicle
+          Customer Name: paul78
+          Project Admin: Rahul  Das
+          """
+
 
 
 
